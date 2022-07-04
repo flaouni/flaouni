@@ -1,0 +1,68 @@
+
+name: build and deployement automation 
+
+on:
+ 
+  push:
+    branches: [ master ]
+  
+  jobs:
+  
+  build:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - uses: Jaid/action-npm-install@v1.2.4
+
+    with:
+
+entrypoint: /website
+
+# NODE_ENV setting for installing execution (affects the amount
+
+nodeEnv: default
+
+# Can be "npm", "yarn", "pnpm" or "auto". "auto" will determine packageManager: npm
+
+# If true and node_modules folder already exists, this action wi
+
+skipIfNodeModules Exists: true
+
+-uses: actions/checkout@v2
+
+# 'cd website' then do 'npm run build'
+
+-name: enter directory then build
+
+run: cd website; npm install; npm run build
+# Auto Commit to chosen branch after build
+
+- uses: stefanzweifel/git-auto-commit-action@v4
+
+
+with:
+
+
+# Required
+
+
+commit_message: Apply automatic changes
+
+
+
+# Optional branch to push to, defaults to the current branch branch: master
+
+
+# Optional options appended to `git-commit` commit_options: --no-verify --signoff'
+
+
+
+# Optional local file path to the repository repository: .
+
+
+# Optional commit user and author settings commit_user_name: My GitHub Actions Bot commit_user_email: my-github-actions-bot@example.org commit_author: Author <actions@github.com>
+
+
+# Optional options appended to `git-push` push_options: '--force'
